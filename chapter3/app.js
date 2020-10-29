@@ -39,11 +39,19 @@ function getFromClient(request, response) {
   }
 }
 
+var data = {
+  'Taro': '09-999-999',
+  'Hanako': '09-999-999',
+  'Sachiko': '09-999-999',
+  'Ichiro': '09-999-999',
+}
+
 function response_index(request, response) {
   var msg = "これはIndexページです。";
   var content = ejs.render(index_page, {
     title: "Index",
     content: msg,
+    data: data
   });
   response.writeHead(200, {'Content-Type': 'text/html'});
   response.write(content);
