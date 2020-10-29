@@ -59,6 +59,13 @@ function response_index(request, response) {
   response.end();
 }
 
+var data2 = {
+  'Taro': ['taro@yamada', '09-999-999', 'Tokyo'],
+  'Hanako': ['taro@yamada', '09-999-999', 'Tokyo'],
+  'Yoshio': ['taro@yamada', '09-999-999', 'Tokyo'],
+  'Keita': ['taro@yamada', '09-999-999', 'Tokyo'],
+}
+
 function response_other(request, response) {
   var msg = "これはOtherページです。";
   if (request.method == 'POST') {
@@ -76,7 +83,9 @@ function response_other(request, response) {
       msg += 'あなたは、「' + post_data.msg + '」と書きました。';
       var content = ejs.render(other_page, {
         title: "Other",
-        content: msg
+        content: msg,
+        data: data2,
+        filename: 'data_item'
       });
       response.writeHead(200, {'Content-Type': 'text/html'});
       response.write(content);
