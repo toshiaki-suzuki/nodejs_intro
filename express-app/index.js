@@ -6,17 +6,31 @@ var ejs = require('ejs');
 var app = express();
 
 // 静的ファイルを利用している
+// app.use(func) アプリに処理を追加
+// express.static('folder') folder内の静的ファイルを全て利用可能にする
 app.use(express.static('public'));
 
 // 蓮んだリングエンジンの設定　拡張子とレンダリングに用いる関数を引数に持たせる
 app.engine('ejs', ejs.renderFile);
 
-// ルーティング
+// トップページ
 app.get('/', (req, res) => {
+  var msg = 'This is Index Page!<br>' + 'これはトップページです。';
   // index.ejs
   res.render('index.ejs', {
     title: 'Index',
-    content: 'This is Express-app Top page!'
+    content: msg,
+    link: {href: '/other', text: '※別のページに移動'}
+  });
+});
+
+// otherページ
+app.get('/other', (req, res) => {
+  var msg = 'This is other Page!<br>' + 'これは、用意された別のページです。';
+  res.render('index.ejs', {
+    title: 'other',
+    content: msg,
+    link: {href: '/', text: '※トップに戻る'}
   });
 })
 
