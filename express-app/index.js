@@ -16,23 +16,25 @@ app.engine('ejs', ejs.renderFile);
 // トップページ
 app.get('/', (req, res) => {
   var msg = 'This is Index Page!<br>' + 'これはトップページです。';
-  // index.ejs
+  var url = '/other?name=taro&pass=yamada';
   res.render('index.ejs', {
     title: 'Index',
     content: msg,
-    link: {href: '/other', text: '※別のページに移動'}
+    link: {href: url, text: '※別のページに移動'}
   });
 });
 
 // otherページ
 app.get('/other', (req, res) => {
-  var msg = 'This is other Page!<br>' + 'これは、用意された別のページです。';
+  var name = req.query.name;
+  var pass = req.query.pass;
+  var msg = 'あなたの名前は' + name + 'です。<br>' + 'パスワードは' + pass + 'です。';
   res.render('index.ejs', {
     title: 'other',
     content: msg,
     link: {href: '/', text: '※トップに戻る'}
   });
-})
+});
 
 // 待受開始
 app.listen(3000, ()=> {
