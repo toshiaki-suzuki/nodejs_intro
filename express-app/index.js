@@ -13,30 +13,28 @@ app.use(express.static('public'));
 // 蓮んだリングエンジンの設定　拡張子とレンダリングに用いる関数を引数に持たせる
 app.engine('ejs', ejs.renderFile);
 
+var bodyParser = require('body-parser');
+// urlエンコードしたボディを返す巻数を利用　 こういうのあ → %E3%81%82
+app.use(bodyParser.urlencoded({extended: false}));
+
 // トップページ
 app.get('/', (req, res) => {
   var msg = 'This is Index Page!<br>' + 'これはトップページです。';
-  var url = '/other?name=taro&pass=yamada';
   res.render('index.ejs', {
     title: 'Index',
     content: msg,
-    link: {href: url, text: '※別のページに移動'}
   });
 });
 
-// otherページ
-app.get('/other', (req, res) => {
-  var name = req.query.name;
-  var pass = req.query.pass;
-  var msg = 'あなたの名前は' + name + 'です。<br>' + 'パスワードは' + pass + 'です。';
+app.post('/', (req, res) => {
+  var msg = 'This is Posted Page!' + 'あなたは「<b>' + req.body.message + '</b>」と送信しました。';
   res.render('index.ejs', {
-    title: 'other',
+    title: 'Posted',
     content: msg,
-    link: {href: '/', text: '※トップに戻る'}
   });
 });
 
 // 待受開始
-app.listen(3000, ()=> {
-  console.log('Start server port:3000');
-})
+var server = app.listen(3000, () => {
+  console.log('Server is running');
+});
