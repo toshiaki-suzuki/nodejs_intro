@@ -17,20 +17,20 @@ var bodyParser = require('body-parser');
 // urlエンコードしたボディを返す巻数を利用　 こういうのあ → %E3%81%82
 app.use(bodyParser.urlencoded({extended: false}));
 
+var data = {
+  'Taro' : 'taro@yamada',
+  'Hanako' : 'hanako@yamada',
+  'Sachiko' : 'sachiko@yamada',
+  'Ichiro' : 'ichiro@yamada',
+}
+
 // トップページ
 app.get('/', (req, res) => {
   var msg = 'This is Index Page!<br>' + 'これはトップページです。';
   res.render('index.ejs', {
     title: 'Index',
     content: msg,
-  });
-});
-
-app.post('/', (req, res) => {
-  var msg = 'This is Posted Page!' + 'あなたは「<b>' + req.body.message + '</b>」と送信しました。';
-  res.render('index.ejs', {
-    title: 'Posted',
-    content: msg,
+    data: data
   });
 });
 
