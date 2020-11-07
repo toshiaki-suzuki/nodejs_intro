@@ -12,4 +12,14 @@ router.get('/', function(req, res, next) {
   res.render('hello', data);
 });
 
+router.post('/post', function(req, res, next) {
+  // リクエストパラメータの取り出し方
+  var msg = req.body['message'];
+  var data = {
+    title: 'Hello!',
+    content: 'あなたは、「' + msg + '」と送信しました。'
+  };
+  res.render('hello', data);
+});
+
 module.exports = router;
