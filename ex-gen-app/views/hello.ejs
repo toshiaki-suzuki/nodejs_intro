@@ -28,14 +28,17 @@
     <h1><%= title %></h1>
   </head>
   <div role="main">
-    <% if (content != null) {%>
-      <ol>
+    <table>
       <% for(var i in content) { %>
+      <tr>
         <% var obj = content[i]; %>
-        <li><a href="<%=obj.link%>"><%=obj.title%></a></li>
+        <th><%= obj.id %></th>
+        <td><%= obj.name %></td>
+        <td><%= obj.mail %></td>
+        <td><%= obj.age %></td>
+      </tr>
       <% } %>
-      </ol>
-    <% } %>
+    </table>
   </div>
 </body>
 </html>
