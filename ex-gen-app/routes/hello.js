@@ -20,11 +20,49 @@ router.get('/', (req, res, next) => {
   connection.query('SELECT * from mydata', function(error, results, fields) {
     if (error == null) {
       var data = {title: 'mysql', content: results};
-      res.render('hello', data);
+      res.render('hello/index', data);
     }
     console.log(error);
     connection.end();
   });
 });
 
+router.get('/add', (req, res, next) => {
+  var data = {
+    title: 'Hello/Add',
+    content: '新しいレコードを入力：'
+  }
+  res.render('hello/add', data);
+});
+
+router.post('/add', (req, res, next)=> {
+  var nm = req.body.name;
+  var ml = req.body.mail;
+  var ag = req.body.age;
+  var data = {'name': nm, 'mail': ml, 'age': ag};
+
+  var connection = mysql.createConnection(mysql_setting);
+  connection.connect();
+  connection.query('insert into mydata set ?', data, function(error, results, fields) {
+    res.redirect('/hello');
+  });
+  connection.end();
+});
+
+router.get('/show', (req, res, next) => {
+  var id = req.query.id;
+
+  var connection = mysql.createConnection(mysql_setting);
+  connection.connect();
+  connection.query('select * from mydata where id=?', id, function(error, results, fields) {
+    if (error == null) {
+      var data = {
+        title: 'Hello',
+        content: 'id = ' + id + 'のレコード',
+        mydata: results[0]
+      }
+      res.render('hello/show', data);
+    }
+  });
+});
 module.exports = router;
