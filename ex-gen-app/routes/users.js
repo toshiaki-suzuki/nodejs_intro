@@ -5,10 +5,11 @@ const {Op} = require('sequelize');
 
 /* GET users listing. */
 router.get('/', (req, res, next)=> {
-  const nm = req.query.name;
+  const min = req.query.min;
+  const max = req.query.max;
   db.User.findAll({
     where: {
-      name: {[Op.like]: '%' + nm + '%'}
+      age: {[Op.gte]: min, [Op.lte]: max}
     }
   }).then(usrs => {
     var data = {
