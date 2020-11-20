@@ -6,7 +6,7 @@
   </head>
   <body>
     <h1><%= title %></h1>
-    <form action="/signin" method="POST">
+    <form action="signin" method="POST">
       <table>
         <tr>
           <th><label for="name">name:</label></th>
@@ -16,7 +16,12 @@
           <th><label for="password">password:</label></th>
           <td><input type="password" name="password" id="password"></td>
         </tr>
+        <tr>
+          <th></th>
+          <td><input type="submit" value="send"></td>
+        </tr>
       </table>
+
     </form>
     <p><a href="/">home</a></p>
   </body>

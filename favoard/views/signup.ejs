@@ -6,7 +6,7 @@
   </head>
   <body>
     <h1><%= title %></h1>
-    <form action="/signup" method="POST">
+    <form action="signup" method="POST">
       <table>
         <tr>
           <th><label for="name">name:</label></th>
@@ -15,6 +15,10 @@
         <tr>
           <th><label for="password">password:</label></th>
           <td><input type="password" name="password" id="password"></td>
+        </tr>
+        <tr>
+          <th></th>
+          <td><input type="submit" value="send"></td>
         </tr>
       </table>
     </form>
