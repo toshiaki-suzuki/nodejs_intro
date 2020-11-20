@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= title %></title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+  </head>
+  <body>
+    <h1><%= title %></h1>
+    <form action="/signup" method="POST">
+      <table>
+        <tr>
+          <th><label for="name">name:</label></th>
+          <td><input type="text" name="name" id="name"></td>
+        </tr>
+        <tr>
+          <th><label for="password">password:</label></th>
+          <td><input type="password" name="password" id="password"></td>
+        </tr>
+      </table>
+    </form>
+    <p><a href="/">home</a></p>
+  </body>
+</html>
