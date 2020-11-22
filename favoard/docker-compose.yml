@@ -1,8 +1,16 @@
 version: '3'
 services:
-  mysql:
-    build: ./mysql/    #Dockerfileからビルドすることを示す
-    volumes:
-      - ./mysql/db:/docker-entrypoint-initdb.d  #初期データ
+  db:
+    image: mysql
+    container_name: mysql
+    volumes: 
+      - mysql_vol:/var/lib/mysql　　
     environment:
-      - MYSQL_ROOT_PASSWORD=root   #環境変数
+      MYSQL_ROOT_PASSWORD: root   #環境変数
+      MYSQL_USER: test
+      MYSQL_PASSWORD: test
+      TZ: 'Asia/Tokyo'
+    ports:
+      - "3306:3306"
+volumes: #トップレベルにもvolumesをmapで追加しないとダメ
+  mysql_vol:
