@@ -13,5 +13,5 @@ services:
       TZ: 'Asia/Tokyo'
     ports:
       - "3306:3306"
-volumes: #トップレベルにもvolumesをmapで追加しないとダメ
+volumes: #トップレベルにもvolumesをmapで追加する
   mysql_vol:
