@@ -4,7 +4,8 @@ services:
     image: mysql
     container_name: mysql
     volumes: 
-      - mysql_vol:/var/lib/mysql　　
+      - mysql_vol:/var/lib/mysql
+      - ./db/mysql_init:/docker-entrypoint-initdb.d　
     environment:
       MYSQL_ROOT_PASSWORD: root   #環境変数
       MYSQL_USER: test
