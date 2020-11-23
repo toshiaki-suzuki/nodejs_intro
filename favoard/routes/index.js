@@ -10,7 +10,7 @@ router.get('/signup', function(req, res, next) {
 });
 
 router.post('/signup', function(req, res, next) {
-  res.redirect('/articles');
+  res.redirect('articles');
 });
 
 router.get('/signin', function(req, res, next) {
@@ -18,7 +18,7 @@ router.get('/signin', function(req, res, next) {
 });
 
 router.post('/signin', function(req, res, next) {
-  res.redirect('/articles/');
+  res.redirect('articles');
 });
 
 module.exports = router;
