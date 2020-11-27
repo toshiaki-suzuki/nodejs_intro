@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= title %></title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+  </head>
+  <body>
+    <h1 class="display-4"><%= title %></h1>
+    <table class="table">
+      <% for(var i in content) { %>
+      <tr>
+        <% var obj = content[i]; %>
+        <th><%= obj.id %></th>
+        <td><%= obj.name %></td>
+        <td><%= obj.mail %></td>
+      </tr>
+      <% } %>
+    </table>
+  </body>
+</html>
