@@ -8,10 +8,15 @@
   <body>
     <h1 class="display-4"><%= title %></h1>
     <table class="table">
+      <tr>
+        <th>UUID</th>
+        <th>NAME</th>
+        <th>MAIL</th>
+      </tr>
       <% for(var i in content) { %>
       <tr>
         <% var obj = content[i]; %>
-        <th><%= obj.id %></th>
+        <td><%= obj.id %></td>
         <td><%= obj.name %></td>
         <td><%= obj.mail %></td>
       </tr>

@@ -4,7 +4,7 @@ const db = require('../models/index');
 const {Op} = require('sequelize');
 
 router.get('/', function(req, res, next) {
-  db.User.findAll()
+  db.Users.findAll()
   .then(usrs => {
     var data = {
       title: 'Users',
