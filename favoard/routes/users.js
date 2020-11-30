@@ -11,6 +11,6 @@ router.get('/', function(req, res, next) {
       content: usrs
     }
     res.render('users/index', data);
-  })
+  });
 });
 module.exports = router;
