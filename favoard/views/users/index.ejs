@@ -15,7 +15,7 @@
       <% for(var i in content) { %>
       <tr>
         <% var obj = content[i]; %>
-        <td><%= obj.name %></td>
+        <td><a href="users/<%=obj.id%>"><%= obj.name %></a></td>
         <td><%= obj.mail %></td>
       </tr>
       <% } %>

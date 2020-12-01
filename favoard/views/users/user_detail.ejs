@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= content.name %>'s Profile</title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+  </head>
+  <body>
+    <h1 class="display-4"><%= content.name %>'s Profile</h1>
+    <table class="table">
+      <colgroup span="4">
+        <col width="30%">
+        <col width="30%">
+        <col width="30%">
+        <col>
+      </colgroup>
+      <tr>
+        <th>USER_ID</th>
+        <th>NAME</th>
+        <th>MAIL</th>   
+        <th>PASSWORD</th>   
+      </tr>
+      <tr>
+        <td><%= content.id %></td>
+        <td><%= content.name %></td>
+        <td><%= content.mail %></td>
+        <td><a href="/users/<%=content.id%>/password">here</a></td>
+      </tr>
+    </table>
+  </body>
+</html>
