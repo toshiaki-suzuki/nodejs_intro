@@ -1,12 +1,12 @@
-var express = require('express');
-var router = express.Router();
+const express = require('express');
+const router = express.Router();
 const db = require('../models/index');
 const {Op} = require('sequelize');
 
 router.get('/', (req, res, next) => {
   db.Articles.findAll()
   .then(articles => {
-    var data = {
+    const data = {
       title: 'Articles',
       content: articles
     }

@@ -1,12 +1,12 @@
-var express = require('express');
-var router = express.Router();
+const express = require('express');
+const router = express.Router();
 const db = require('../models/index');
 const {Op} = require('sequelize');
 
 router.get('/', function(req, res, next) {
   db.Users.findAll()
   .then(usrs => {
-    var data = {
+    const data = {
       title: 'Users',
       content: usrs
     }
@@ -21,7 +21,7 @@ router.get('/:userId', (req, res, next) => {
   }).then(usr => {
     console.log(usr);
     const userData = usr[0].dataValues;
-    var data = {
+    const data = {
       content: userData
     }
     res.render('users/user_detail', data);
