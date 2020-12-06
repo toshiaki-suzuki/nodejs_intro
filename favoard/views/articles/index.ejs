@@ -10,11 +10,13 @@
     <table class="table">
       <tr>
         <th>TITLE</th>
+        <th>CONTENT</th>
       </tr>
       <% for(var i in content) { %>
       <tr>
         <% var obj = content[i]; %>
-        <td><%= obj.title %></td>
+        <td><a href="articles/<%=obj.id%>"><%= obj.title %></a></td>
+        <td><%= obj.content.substring(0,50) %></td>
       </tr>
       <% } %>
     </table>

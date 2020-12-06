@@ -19,7 +19,6 @@ router.get('/:userId', (req, res, next) => {
   db.Users.findAll({
     where: { id }
   }).then(usr => {
-    console.log(usr);
     const userData = usr[0].dataValues;
     const data = {
       content: userData
