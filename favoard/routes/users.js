@@ -16,12 +16,10 @@ router.get('/', function(req, res, next) {
 
 router.get('/:userId', (req, res, next) => {
   const id = req.params.userId;
-  db.Users.findAll({
-    where: { id }
-  }).then(usr => {
-    const userData = usr[0].dataValues;
+  db.Users.findByPk(id)
+  .then(usr => {
     const data = {
-      content: userData
+      content: usr
     }
     res.render('users/user_detail', data);
   });
