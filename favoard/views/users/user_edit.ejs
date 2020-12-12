@@ -28,7 +28,10 @@
           <td><input name="password" type="text" value="<%= content.password %>"></td>
         </tr>
       </table>
-      <input class="btn btn-primary" type="submit" value="Send">
+      <div>
+        <input class="btn btn-primary" type="submit" value="Send">
+        <a class="btn btn-secondary" href="/users/<%= content.id %>">Cancel</a>
+      </div>
     </form>
   </body>
 </html>
