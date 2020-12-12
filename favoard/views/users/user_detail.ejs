@@ -24,9 +24,12 @@
         <td><%= content.id %></td>
         <td><%= content.name %></td>
         <td><%= content.mail %></td>
-        <td><a href="/users/<%=content.id%>/password">here</a></td>
+        <td>******</td>
       </tr>
     </table>
-    <a class="btn btn-primary" href="/users/<%=content.id%>/edit">Edit</a>
+    <div>
+      <a class="btn btn-primary" href="/users/<%=content.id%>/edit">Edit</a>
+      <a class="btn btn-secondary" href="/users">Back</a>
+    </div>
   </body>
 </html>
