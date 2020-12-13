@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>New User</title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+  </head>
+  <body>
+    <h1 class="display-4">New User</h1>
+    <form action="/users/create" method="post">
+      <table class="table">
+        <colgroup span="4">
+          <col width="30%">
+          <col width="30%">
+          <col width="30%">
+          <col>
+        </colgroup>
+        <tr>
+          <th>NAME</th>
+          <th>MAIL</th>   
+          <th>PASSWORD</th>   
+        </tr>
+        <tr>
+          <td><input name="name" type="text"></td>
+          <td><input name="mail" type="text"></td>
+          <td><input name="password" type="text"></td>
+        </tr>
+      </table>
+      <div>
+        <input class="btn btn-primary" type="submit" value="Send">
+        <a class="btn btn-secondary" href="/users">Cancel</a>
+      </div>
+    </form>
+  </body>
+</html>
