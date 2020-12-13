@@ -27,4 +27,25 @@ router.get('/:articleId', (req, res, next) => {
   });
 });
 
+
+router.get('/:articleId/edit', (req, res, next)=> {
+  const id = req.params.articleId;
+  db.Articles.findByPk(id)
+  .then(article => {
+    const data = {
+      content: article
+    }
+    res.render('articles/article_edit', data);
+  });
+});
+
+router.post('/:articleId/edit', (req, res, next)=> {
+  const id = req.params.articleId;
+  db.Articles.findByPk(id)
+  .then(article => {
+    article.content = req.body.content;
+    article.save().then(()=>res.redirect(`/articles/${id}`));
+  });
+});
+
 module.exports = router;

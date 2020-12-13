@@ -8,6 +8,11 @@
   <body>
     <h1 class="display-4"><%= content.title %></h1>
     <hr>
-    <p><%= content.content %></p>
+    <p style="margin-bottom: 50px;"><%= content.content %></p>
+    <hr>
+    <div>
+      <a class="btn btn-primary" href="/articles/<%=content.id%>/edit">Edit</a>
+      <a class="btn btn-secondary" href="/articles">Back</a>
+    </div>
   </body>
 </html>

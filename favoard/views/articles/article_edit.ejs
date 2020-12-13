@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= content.name %>'s Profile</title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+  </head>
+  <body>
+    <form action="/articles/<%=content.id%>/edit" method="post">
+      <h1 class="display-4"><%= content.title %></h1>
+      <hr>
+      <textarea name="content" id="" style="margin-bottom: 50px; width: 100%; min-height: 450px;">
+        <%= content.content %>
+      </textarea>
+      <hr>
+      <div>
+        <input class="btn btn-primary" type="submit" value="Send">
+        <a class="btn btn-secondary" href="/articles/<%= content.id %>">Cancel</a>
+      </div>
+    </form>
+  </body>
+</html>
