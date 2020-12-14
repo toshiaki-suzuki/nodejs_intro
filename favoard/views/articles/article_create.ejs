@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>New Article</title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+  </head>
+  <body>
+    <form action="/articles/create" method="post">
+      <label for="title">Title : </label>
+      <input type="text" id="title"></input>
+      <hr>
+      <label for="content">New Article's Content : </label>
+      <textarea name="content" id="content" style="margin-bottom: 50px; width: 100%; min-height: 450px;"></textarea>
+      <hr>
+      <div>
+        <input class="btn btn-primary" type="submit" value="Send">
+        <a class="btn btn-secondary" href="/articles/">Cancel</a>
+      </div>
+    </form>
+  </body>
+</html>
+

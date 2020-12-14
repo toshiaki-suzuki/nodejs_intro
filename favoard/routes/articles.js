@@ -14,6 +14,17 @@ router.get('/', (req, res, next) => {
   });
 });
 
+router.get('/create', (req, res, next)=> {
+  res.render('articles/article_create');
+});
+
+router.post('/create', (req, res, next)=> {
+  db.Articles.create({
+    title: req.body.title,
+    content: req.body.content
+  }).then(article => res.redirect(`/articles/${article.id}`));
+});
+
 router.get('/:articleId', (req, res, next) => {
   const id = req.params.articleId;
   db.Articles.findAll({
