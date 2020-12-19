@@ -7,7 +7,7 @@
   </head>
   <body>
     <h1 class="display-4">New User</h1>
-    <form action="/users/create" method="post">
+    <form name="form" action="/users/create" method="post">
       <table class="table">
         <colgroup span="4">
           <col width="30%">
@@ -21,11 +21,17 @@
           <th>PASSWORD</th>   
         </tr>
         <tr>
-          <td><input name="name" type="text"></td>
-          <td><input name="mail" type="text"></td>
-          <td><input name="password" type="text"></td>
+          <td><input id="name" name="name" type="text"></td>
+          <td><input id="mail" name="mail" type="text"></td>
+          <td><input id="password" name="password" type="text"></td>
         </tr>
       </table>
+      <div id="errMsg">
+        <%for (i in errors) { %>
+          <% let error = errors[i]%>
+          <p style="color:red;"><%=error.param%> is <%= error.msg%></p>
+        <% } %>
+      </div>
       <div>
         <input class="btn btn-primary" type="submit" value="Send">
         <a class="btn btn-secondary" href="/users">Cancel</a>

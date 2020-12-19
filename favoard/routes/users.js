@@ -3,6 +3,7 @@ const router = express.Router();
 const db = require('../models/index');
 const {Op} = require('sequelize');
 const { v4: uuidv4 } = require('uuid');
+const { body, validationResult } = require('express-validator');
 
 router.get('/', function(req, res, next) {
   db.Users.findAll()
@@ -16,10 +17,18 @@ router.get('/', function(req, res, next) {
 });
 
 router.get('/create', (req, res, next)=> {
-  res.render('users/user_create');
+  res.render('users/user_create', {errors: {}});
 });
 
-router.post('/create', (req, res, next)=> {
+router.post('/create', [
+  body('name').isLength({ max: 64 }),
+  body('mail').isEmail(),
+  body('password').isLength({ min: 8, max: 32 })
+], (req, res, next)=> {
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    res.render('users/user_create', { errors: errors.array() });
+  }
   db.Users.create({
     id: uuidv4(),
     name: req.body.name,
