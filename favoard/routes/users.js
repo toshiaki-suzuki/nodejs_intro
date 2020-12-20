@@ -5,6 +5,15 @@ const {Op} = require('sequelize');
 const { v4: uuidv4 } = require('uuid');
 const { check, validationResult } = require('express-validator');
 
+const validationChecks = [
+  check('name').isLength({ max: 64 }).withMessage('must be at most 64 chars long')
+              .not().isEmpty().withMessage('is required'),
+  check('mail').isEmail().withMessage('must be in the form of an email'),
+  check('password').isLength({ min: 8, max: 32 }).withMessage('must be at least 5 and at most 32 chars long')
+];
+
+
+
 router.get('/', function(req, res, next) {
   db.Users.findAll()
   .then(usrs => {
@@ -26,12 +35,7 @@ router.get('/create', (req, res, next)=> {
   res.render('users/user_create', data);
 });
 
-router.post('/create', [
-  check('name').isLength({ max: 64 }).withMessage('must be at most 64 chars long')
-              .not().isEmpty().withMessage('is required'),
-  check('mail').isEmail().withMessage('must be in the form of an email'),
-  check('password').isLength({ min: 8, max: 32 }).withMessage('must be at least 5 and at most 32 chars long')
-], (req, res, next)=> {
+router.post('/create', validationChecks, (req, res, next)=> {
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
     const data = {
@@ -39,8 +43,8 @@ router.post('/create', [
       mail: req.body.mail,
       password: req.body.password,
       errors: errors.array()
-    }
-    res.render('users/user_create', data);
+    };
+    return res.render('users/user_create', data);
   }
   db.Users.create({
     id: uuidv4(),
