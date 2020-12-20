@@ -21,15 +21,15 @@
           <th>PASSWORD</th>   
         </tr>
         <tr>
-          <td><input id="name" name="name" type="text"></td>
-          <td><input id="mail" name="mail" type="text"></td>
-          <td><input id="password" name="password" type="text"></td>
+          <td><input id="name" name="name" type="text" value="<%=name%>"></td>
+          <td><input id="mail" name="mail" type="text" value="<%=mail%>"></td>
+          <td><input id="password" name="password" type="text" value="<%=password%>"></td>
         </tr>
       </table>
       <div id="errMsg">
         <%for (i in errors) { %>
           <% let error = errors[i]%>
-          <p style="color:red;"><%=error.param%> is <%= error.msg%></p>
+          <p style="color:red;"><%=error.param%> <%= error.msg%></p>
         <% } %>
       </div>
       <div>

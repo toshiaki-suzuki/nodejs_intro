@@ -3,7 +3,7 @@ const router = express.Router();
 const db = require('../models/index');
 const {Op} = require('sequelize');
 const { v4: uuidv4 } = require('uuid');
-const { body, validationResult } = require('express-validator');
+const { check, validationResult } = require('express-validator');
 
 router.get('/', function(req, res, next) {
   db.Users.findAll()
@@ -17,17 +17,30 @@ router.get('/', function(req, res, next) {
 });
 
 router.get('/create', (req, res, next)=> {
-  res.render('users/user_create', {errors: {}});
+  const data = {
+    name: '',
+    mail: '',
+    password: '',
+    errors: {}
+  };
+  res.render('users/user_create', data);
 });
 
 router.post('/create', [
-  body('name').isLength({ max: 64 }),
-  body('mail').isEmail(),
-  body('password').isLength({ min: 8, max: 32 })
+  check('name').isLength({ max: 64 }).withMessage('must be at most 64 chars long')
+              .not().isEmpty().withMessage('is required'),
+  check('mail').isEmail().withMessage('must be in the form of an email'),
+  check('password').isLength({ min: 8, max: 32 }).withMessage('must be at least 5 and at most 32 chars long')
 ], (req, res, next)=> {
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
-    res.render('users/user_create', { errors: errors.array() });
+    const data = {
+      name: req.body.name,
+      mail: req.body.mail,
+      password: req.body.password,
+      errors: errors.array()
+    }
+    res.render('users/user_create', data);
   }
   db.Users.create({
     id: uuidv4(),
