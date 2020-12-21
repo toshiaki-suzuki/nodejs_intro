@@ -28,6 +28,12 @@
           <td><input name="password" type="text" value="<%= content.password %>"></td>
         </tr>
       </table>
+      <div id="errMsg">
+        <%for (i in errors) { %>
+          <% let error = errors[i]%>
+          <p style="color:red;"><%=error.param%> <%= error.msg%></p>
+        <% } %>
+      </div>
       <div>
         <input class="btn btn-primary" type="submit" value="Send">
         <a class="btn btn-secondary" href="/users/<%= content.id %>">Cancel</a>

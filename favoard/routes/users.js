@@ -72,13 +72,24 @@ router.get('/:userId/edit', (req, res, next)=> {
   db.Users.findByPk(id)
   .then(usr => {
     const data = {
-      content: usr
+      content: usr,
+      errors: {}
     }
     res.render('users/user_edit', data);
   });
 });
 
-router.post('/:userId/edit', (req, res, next)=> {
+router.post('/:userId/edit', validationChecks, (req, res, next)=> {
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    const data = {
+      name: req.body.name,
+      mail: req.body.mail,
+      password: req.body.password,
+      errors: errors.array()
+    };
+    return res.render('users/user_create', data);
+  }
   const id = req.params.userId;
   db.Users.findByPk(id)
   .then(usr => {
