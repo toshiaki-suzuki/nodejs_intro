@@ -1,28 +1,32 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title><%= title %></title>
+    <title>Sign In</title>
     <link rel='stylesheet' href='/stylesheets/style.css' />
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
   </head>
   <body>
-    <h1><%= title %></h1>
+    <h1>Sign In</h1>
     <form action="signin" method="POST">
-      <table>
+      <table class="table">
+        <colgroup span="2">
+          <col width="30%">
+          <col>
+        </colgroup>
         <tr>
-          <th><label for="name">name:</label></th>
-          <td><input type="text" name="name" id="name"></td>
+          <th>MAIL</th>   
+          <th>PASSWORD</th>   
         </tr>
         <tr>
-          <th><label for="password">password:</label></th>
-          <td><input type="password" name="password" id="password"></td>
-        </tr>
-        <tr>
-          <th></th>
-          <td><input type="submit" value="send"></td>
+          <td><input name="mail" type="text" value="<%=mail %>"></td>
+          <td><input name="password" type="text" value="<%=password %>"></td>
         </tr>
       </table>
-
-    </form>
-    <p><a href="/">home</a></p>
+      <p style="color: red;"><%=msg %></p>
+    <input class="btn btn-primary" type="submit" value="Send">
+  </form>
+  <div>
+    <a class="btn btn-secondary" href="/">Back</a>
+  </div>
   </body>
 </html>
