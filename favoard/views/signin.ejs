@@ -7,7 +7,7 @@
   </head>
   <body>
     <h1>Sign In</h1>
-    <form action="signin" method="POST">
+    <form action="/signin" method="POST">
       <table class="table">
         <colgroup span="2">
           <col width="30%">
@@ -19,12 +19,12 @@
         </tr>
         <tr>
           <td><input name="mail" type="text" value="<%=mail %>"></td>
-          <td><input name="password" type="text" value="<%=password %>"></td>
+          <td><input name="password" type="password" value="<%=password %>"></td>
         </tr>
       </table>
       <p style="color: red;"><%=msg %></p>
-    <input class="btn btn-primary" type="submit" value="Send">
-  </form>
+      <input class="btn btn-primary" type="submit" value="Send">
+    </form>
   <div>
     <a class="btn btn-secondary" href="/">Back</a>
   </div>
