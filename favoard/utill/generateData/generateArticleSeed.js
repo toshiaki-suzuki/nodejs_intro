@@ -1,6 +1,6 @@
 const { v5: uuidv5 } = require('uuid');
 const { users, USERS_NAME_SPACE } = require('./generateUserSeed');
-ARTICLES_NAME_SPACE= '710b962e-041c-11e1-9234-0123456789ab';
+const ARTICLES_NAME_SPACE= '710b962e-041c-11e1-9234-0123456789ab';
 const makeSampleArticleDataList = ()=> {
   let sampleArticleList = [];
   for(let i=0; i < users.length; i++) {

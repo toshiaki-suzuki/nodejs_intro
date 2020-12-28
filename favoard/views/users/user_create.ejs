@@ -7,7 +7,7 @@
   </head>
   <body>
     <h1 class="display-4">New User</h1>
-    <form name="form" action="/users/create" method="post">
+    <form action="/users/create" method="post">
       <table class="table">
         <colgroup span="4">
           <col width="30%">
@@ -21,9 +21,9 @@
           <th>PASSWORD</th>   
         </tr>
         <tr>
-          <td><input id="name" name="name" type="text" value="<%=name%>"></td>
-          <td><input id="mail" name="mail" type="text" value="<%=mail%>"></td>
-          <td><input id="password" name="password" type="text" value="<%=password%>"></td>
+          <td><input name="name" type="text" value="<%=name%>"></td>
+          <td><input name="mail" type="text" value="<%=mail%>"></td>
+          <td><input name="password" type="text" value="<%=password%>"></td>
         </tr>
       </table>
       <div id="errMsg">

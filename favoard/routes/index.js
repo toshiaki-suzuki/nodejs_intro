@@ -1,6 +1,7 @@
-var express = require('express');
-var router = express.Router();
+const express = require('express');
+const router = express.Router();
 const db = require('../models/index');
+const bcrypt = require('bcrypt');
 
 router.get('/', function(req, res, next) {
   res.render('index', { title: 'Favoard' });
@@ -34,7 +35,7 @@ router.post('/signin', function(req, res, next) {
   const password = req.body.password;
   db.Users.findOne({ where: { mail: mail } })
   .then(usr => {
-    if (password === usr.password) {
+    if (bcrypt.compareSync(password, usr.password)) {
       const data = {
         content: usr
       }
@@ -48,7 +49,6 @@ router.post('/signin', function(req, res, next) {
       res.render('signin', data);
     }
   });
-  
 });
 
 module.exports = router;
