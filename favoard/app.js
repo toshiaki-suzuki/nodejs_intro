@@ -1,12 +1,16 @@
+const bodyParser = require('body-parser');
+const cookieParser = require('cookie-parser');
 const createError = require('http-errors');
 const express = require('express');
-const path = require('path');
-const cookieParser = require('cookie-parser');
 const logger = require('morgan');
+const path = require('path');
+const session = require('express-session');
+
 
 const indexRouter = require('./routes/index');
 const usersRouter = require('./routes/users');
 const articlesRouter = require('./routes/articles');
+const authRouter = require('./routes/auth');
 
 const app = express();
 
@@ -19,10 +23,34 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(session({
+  secret: 'secret',
+  resave: false,
+  saveUninitialized: false,
+  cookie:{
+  httpOnly: true,
+  secure: false,
+  maxage: 1000 * 60 * 30
+  }
+}));
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(function(req, res, next){
+  res.locals.userId = req.session.userId;
+  next();
+});
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/articles', articlesRouter);
+app.use('/auth', authRouter);
+
+app.use((req, res, next) => {
+  if (req.session.userId) {
+    next();
+  } else {
+    res.redirect('/auth/signin');
+  }
+});
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

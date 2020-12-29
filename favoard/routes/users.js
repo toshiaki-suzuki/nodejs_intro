@@ -101,3 +101,4 @@ router.post('/:userId/edit', validationChecks, (req, res, next)=> {
   });
 });
 
+module.exports = router;

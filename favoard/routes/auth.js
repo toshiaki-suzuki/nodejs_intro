@@ -32,10 +32,10 @@ router.post('/signin', function(req, res, next) {
   db.Users.findOne({ where: { mail: mail } })
   .then(usr => {
     if (bcrypt.compareSync(password, usr.password)) {
-      const data = {
-        content: usr
-      }
-      res.redirect('articles');
+      req.session.regenerate((err) => {
+        req.session.userId = usr.id;
+        res.redirect('/articles');
+      });
     } else {
       const data = {
         mail: mail,
