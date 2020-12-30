@@ -1,9 +1,10 @@
-const express = require('express');
-const router = express.Router();
-const db = require('../models/index');
-const {Op} = require('sequelize');
-const { v4: uuidv4 } = require('uuid');
+const bcrypt = require('bcrypt');
 const { check, validationResult } = require('express-validator');
+const db = require('../models/index');
+const express = require('express');
+const {Op} = require('sequelize');
+const router = express.Router();
+const { v4: uuidv4 } = require('uuid');
 
 const validationChecks = [
   check('name').isLength({ max: 64 }).withMessage('must be at most 64 chars long')
@@ -39,7 +40,7 @@ router.post('/create', validationChecks, (req, res, next)=> {
     const data = {
       name: req.body.name,
       mail: req.body.mail,
-      password: req.body.password,
+      password: bcrypt.hashSync(req.body.password, 10),
       errors: errors.array()
     };
     return res.render('users/user_create', data);

@@ -1,7 +1,9 @@
+const bcrypt = require('bcrypt');
+const { check, validationResult } = require('express-validator');
+const db = require('../models/index');
 const express = require('express');
 const router = express.Router();
-const db = require('../models/index');
-const bcrypt = require('bcrypt');
+const { v4: uuidv4 } = require('uuid');
 
 const validationChecks = [
   check('name').isLength({ max: 64 }).withMessage('must be at most 64 chars long')
@@ -15,7 +17,8 @@ router.get('/signup', function(req, res, next) {
     title: 'Sign Up',
     name: '',
     mail: '',
-    password: ''
+    password: '',
+    errors: {}
   };
   res.render('auth/signup', data);
 });
@@ -29,14 +32,20 @@ router.post('/signup', validationChecks, function(req, res, next) {
       password: req.body.password,
       errors: errors.array()
     };
-    db.Users.create({
-      id: uuidv4(),
-      name: req.body.name,
-      mail: req.body.mail,
-      password: req.body.password,
-      createdAt: new Date(),
-    }).then(usr => res.redirect(`/articles`));
+    return res.render('auth/signup', data);
   }
+  db.Users.create({
+    id: uuidv4(),
+    name: req.body.name,
+    mail: req.body.mail,
+    password: bcrypt.hashSync(req.body.password, 10),
+    createdAt: new Date(),
+  }).then(usr => {
+    req.session.regenerate((err) => {
+      req.session.userId = usr.id;
+      res.redirect('/articles');
+    });
+  });
 });
 
 router.get('/signin', function(req, res, next) {
