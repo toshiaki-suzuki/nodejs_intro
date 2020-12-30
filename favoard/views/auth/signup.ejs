@@ -1,27 +1,41 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title><%= title %></title>
+    <title>New User</title>
     <link rel='stylesheet' href='/stylesheets/style.css' />
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
   </head>
   <body>
-    <h1><%= title %></h1>
-    <form action="signup" method="POST">
-      <table>
+    <h1 class="display-4">Sign Up</h1>
+    <form action="/users/create" method="post">
+      <table class="table">
+        <colgroup span="4">
+          <col width="30%">
+          <col width="30%">
+          <col width="30%">
+          <col>
+        </colgroup>
         <tr>
-          <th><label for="name">name:</label></th>
-          <td><input type="text" name="name" id="name"></td>
+          <th>NAME</th>
+          <th>MAIL</th>   
+          <th>PASSWORD</th>   
         </tr>
         <tr>
-          <th><label for="password">password:</label></th>
-          <td><input type="password" name="password" id="password"></td>
-        </tr>
-        <tr>
-          <th></th>
-          <td><input type="submit" value="send"></td>
+          <td><input name="name" type="text" value="<%=name%>"></td>
+          <td><input name="mail" type="text" value="<%=mail%>"></td>
+          <td><input name="password" type="text" value="<%=password%>"></td>
         </tr>
       </table>
+      <div id="errMsg">
+        <%for (i in errors) { %>
+          <% let error = errors[i]%>
+          <p style="color:red;"><%=error.param%> <%= error.msg%></p>
+        <% } %>
+      </div>
+      <div>
+        <input class="btn btn-primary" type="submit" value="Send">
+        <a class="btn btn-secondary" href="/users">Cancel</a>
+      </div>
     </form>
-    <p><a href="/">home</a></p>
   </body>
 </html>

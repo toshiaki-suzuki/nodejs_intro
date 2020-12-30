@@ -12,8 +12,6 @@ const validationChecks = [
   check('password').isLength({ min: 8, max: 32 }).withMessage('must be at least 5 and at most 32 chars long')
 ];
 
-
-
 router.get('/', function(req, res, next) {
   db.Users.findAll()
   .then(usrs => {

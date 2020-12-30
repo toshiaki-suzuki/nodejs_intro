@@ -3,6 +3,13 @@ const router = express.Router();
 const db = require('../models/index');
 const bcrypt = require('bcrypt');
 
+const validationChecks = [
+  check('name').isLength({ max: 64 }).withMessage('must be at most 64 chars long')
+              .not().isEmpty().withMessage('is required'),
+  check('mail').isEmail().withMessage('must be in the form of an email'),
+  check('password').isLength({ min: 8, max: 32 }).withMessage('must be at least 5 and at most 32 chars long')
+];
+
 router.get('/signup', function(req, res, next) {
   const data = {
     title: 'Sign Up',
@@ -13,8 +20,23 @@ router.get('/signup', function(req, res, next) {
   res.render('auth/signup', data);
 });
 
-router.post('/signup', function(req, res, next) {
-  res.redirect('articles');
+router.post('/signup', validationChecks, function(req, res, next) {
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    const data = {
+      name: req.body.name,
+      mail: req.body.mail,
+      password: req.body.password,
+      errors: errors.array()
+    };
+    db.Users.create({
+      id: uuidv4(),
+      name: req.body.name,
+      mail: req.body.mail,
+      password: req.body.password,
+      createdAt: new Date(),
+    }).then(usr => res.redirect(`/articles`));
+  }
 });
 
 router.get('/signin', function(req, res, next) {
