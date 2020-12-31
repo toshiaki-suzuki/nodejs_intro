@@ -5,6 +5,7 @@ const express = require('express');
 const logger = require('morgan');
 const path = require('path');
 const session = require('express-session');
+const crypto = require('crypto');
 
 
 const indexRouter = require('./routes/index');
@@ -23,6 +24,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+
 app.use(session({
   secret: 'secret',
   resave: false,
@@ -36,6 +38,22 @@ app.use(session({
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(function(req, res, next){
   res.locals.userId = req.session.userId;
+  next();
+});
+app.use((req, res, next) => {
+  const method = req.method;
+  if(method === 'GET') {
+    const csrfToken = crypto.randomBytes(20).toString('hex');
+    req.session.csrfToken = csrfToken;
+    res.locals = {
+      csrfToken: csrfToken,
+      csrfField: '<input type="hidden" name="_token" value="'+ csrfToken +'">'
+    };
+  } else if(['POST', 'PUT', 'PATCH', 'DELETE'].includes(method)) {
+    if(req.body._token !== req.session.csrfToken) {
+      return res.status(419).send('Page Expired');
+    }
+  }
   next();
 });
 
